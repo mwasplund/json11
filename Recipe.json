@@ -2,5 +2,6 @@
   "name": "json11",
   "version": "1.0.0",
   "dependencies": [],
+  "public": "json11.cppm",
   "source": []
 }

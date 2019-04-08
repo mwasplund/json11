@@ -10,3 +10,10 @@ CMakeFiles
 CMakeScripts
 cmake_install.cmake
 install_manifest.txt
+
+# VSCode
+.vscode/ipch/
+
+# Soup
+out/
+.soup/
