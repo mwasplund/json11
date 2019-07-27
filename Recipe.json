@@ -1,7 +1,9 @@
 {
   "name": "json11",
   "version": "1.0.0",
-  "dependencies": [],
+  "dependencies": [
+    "D:/Repos/SoupSTL/Core/"
+  ],
   "public": "json11.cppm",
   "source": []
 }

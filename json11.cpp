@@ -20,11 +20,15 @@
  */
 
 #include "json11.hpp"
+#ifdef SOUP_BUILD
+#define assert(expression) ((void)0)
+#else
 #include <cassert>
 #include <cmath>
 #include <cstdlib>
 #include <cstdio>
 #include <limits>
+#endif
 
 namespace json11 {
 
