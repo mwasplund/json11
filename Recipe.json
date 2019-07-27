@@ -2,7 +2,7 @@
   "name": "json11",
   "version": "1.0.0",
   "dependencies": [
-    "D:/Repos/SoupSTL/Core/"
+    "../../Dependencies/SoupSTL/Core/"
   ],
   "public": "json11.cppm",
   "source": []
