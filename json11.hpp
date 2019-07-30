@@ -57,9 +57,7 @@
   #define SOUP_EXPORT
 #endif
 
-#ifdef SOUP_BUILD
-import std.core;
-#else
+#ifndef SOUP_BUILD
 #include <string>
 #include <vector>
 #include <map>
