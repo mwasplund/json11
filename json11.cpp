@@ -19,8 +19,9 @@
  * THE SOFTWARE.
  */
 
-#include "json11.hpp"
 #ifdef SOUP_BUILD
+export module json11;
+import std.core;
 #define assert(expression) ((void)0)
 #else
 #include <cassert>
@@ -29,6 +30,8 @@
 #include <cstdio>
 #include <limits>
 #endif
+
+#include "json11.hpp"
 
 namespace json11 {
 
@@ -527,7 +530,7 @@ struct JsonParser final {
                         return fail("bad \\u escape: " + esc, "");
                 }
 
-                long codepoint = strtol(esc.data(), nullptr, 16);
+                long codepoint = std::strtol(esc.data(), nullptr, 16);
 
                 // JSON specifies that characters outside the BMP shall be encoded as a pair
                 // of 4-hex-digit \u escapes encoding their surrogate pair components. Check
