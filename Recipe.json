@@ -4,6 +4,6 @@
   "dependencies": [
     "../../Dependencies/SoupSTL/Core/"
   ],
-  "public": "json11.cppm",
+  "public": "json11.cpp",
   "source": []
 }
