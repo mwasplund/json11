@@ -21,7 +21,7 @@
 
 #ifdef SOUP_BUILD
 export module json11;
-import std.core;
+import StandardLibrary;
 #define assert(expression) ((void)0)
 #else
 #include <cassert>
@@ -35,7 +35,7 @@ import std.core;
 
 namespace json11 {
 
-static const int max_depth = 200;
+constexpr int max_depth = 200;
 
 using std::string;
 using std::vector;
@@ -346,7 +346,9 @@ static inline bool in_range(long x, long lower, long upper) {
     return (x >= lower && x <= upper);
 }
 
+#ifndef SOUP_BUILD
 namespace {
+#endif
 /* JsonParser
  *
  * Object that tracks all state of an in-progress parse.
@@ -734,7 +736,9 @@ struct JsonParser final {
         return fail("expected value, got " + esc(ch));
     }
 };
+#ifndef SOUP_BUILD
 }//namespace {
+#endif
 
 Json Json::parse(const string &in, string &err, JsonParse strategy) {
     JsonParser parser { in, 0, err, false, strategy };
