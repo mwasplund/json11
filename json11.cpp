@@ -20,15 +20,22 @@
  */
 
 #ifdef SOUP_BUILD
-export module json11;
-import StandardLibrary;
-#define assert(expression) ((void)0)
-#else
+module;
+#include <string>
+#include <vector>
+#include <map>
+#include <memory>
+#include <initializer_list>
+#endif
+
 #include <cassert>
 #include <cmath>
 #include <cstdlib>
 #include <cstdio>
 #include <limits>
+
+#ifdef SOUP_BUILD
+export module json11;
 #endif
 
 #include "json11.hpp"

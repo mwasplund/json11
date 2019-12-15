@@ -2,7 +2,6 @@
   "name": "json11",
   "version": "1.0.0",
   "dependencies": [
-    "../../Dependencies/SoupSTL/Core/"
   ],
   "public": "json11.cpp",
   "source": []
