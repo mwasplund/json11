@@ -1,8 +1,5 @@
 {
-  "name": "json11",
-  "version": "1.0.0",
-  "dependencies": [
-  ],
-  "public": "json11.cpp",
-  "source": []
+  "Name": "json11",
+  "Version": "1.0.0",
+  "Public": "json11.cpp"
 }
