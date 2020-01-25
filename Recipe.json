@@ -1,5 +1,5 @@
 {
-  "Name": "json11",
-  "Version": "1.0.0",
-  "Public": "json11.cpp"
+  "name": "json11",
+  "version": "1.0.0",
+  "public": "json11.cpp"
 }

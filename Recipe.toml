@@ -1,0 +1,3 @@
+Name = "json11"
+Version = "1.0.0"
+Public = "json11.cpp"
