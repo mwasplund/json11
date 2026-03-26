@@ -19,30 +19,16 @@
  * THE SOFTWARE.
  */
 
-#ifdef SOUP_BUILD
-module;
-#include <string>
-#include <vector>
-#include <map>
-#include <memory>
-#include <initializer_list>
-#endif
-
+#include "json11.hpp"
 #include <cassert>
 #include <cmath>
 #include <cstdlib>
 #include <cstdio>
 #include <limits>
 
-#ifdef SOUP_BUILD
-export module json11;
-#endif
-
-#include "json11.hpp"
-
 namespace json11 {
 
-constexpr int max_depth = 200;
+static const int max_depth = 200;
 
 using std::string;
 using std::vector;
@@ -165,7 +151,7 @@ protected:
 
     // Constructors
     explicit Value(const T &value) : m_value(value) {}
-    explicit Value(T &&value)      : m_value(std::move(value)) {}
+    explicit Value(T &&value)      : m_value(move(value)) {}
 
     // Get type tag
     Json::Type type() const override {
@@ -212,7 +198,7 @@ class JsonString final : public Value<Json::STRING, string> {
     const string &string_value() const override { return m_value; }
 public:
     explicit JsonString(const string &value) : Value(value) {}
-    explicit JsonString(string &&value)      : Value(std::move(value)) {}
+    explicit JsonString(string &&value)      : Value(move(value)) {}
 };
 
 class JsonArray final : public Value<Json::ARRAY, Json::array> {
@@ -220,7 +206,7 @@ class JsonArray final : public Value<Json::ARRAY, Json::array> {
     const Json & operator[](size_t i) const override;
 public:
     explicit JsonArray(const Json::array &value) : Value(value) {}
-    explicit JsonArray(Json::array &&value)      : Value(std::move(value)) {}
+    explicit JsonArray(Json::array &&value)      : Value(move(value)) {}
 };
 
 class JsonObject final : public Value<Json::OBJECT, Json::object> {
@@ -228,7 +214,7 @@ class JsonObject final : public Value<Json::OBJECT, Json::object> {
     const Json & operator[](const string &key) const override;
 public:
     explicit JsonObject(const Json::object &value) : Value(value) {}
-    explicit JsonObject(Json::object &&value)      : Value(std::move(value)) {}
+    explicit JsonObject(Json::object &&value)      : Value(move(value)) {}
 };
 
 class JsonNull final : public Value<Json::NUL, NullStruct> {
@@ -270,12 +256,12 @@ Json::Json(double value)               : m_ptr(make_shared<JsonDouble>(value)) {
 Json::Json(int value)                  : m_ptr(make_shared<JsonInt>(value)) {}
 Json::Json(bool value)                 : m_ptr(value ? statics().t : statics().f) {}
 Json::Json(const string &value)        : m_ptr(make_shared<JsonString>(value)) {}
-Json::Json(string &&value)             : m_ptr(make_shared<JsonString>(std::move(value))) {}
+Json::Json(string &&value)             : m_ptr(make_shared<JsonString>(move(value))) {}
 Json::Json(const char * value)         : m_ptr(make_shared<JsonString>(value)) {}
 Json::Json(const Json::array &values)  : m_ptr(make_shared<JsonArray>(values)) {}
-Json::Json(Json::array &&values)       : m_ptr(make_shared<JsonArray>(std::move(values))) {}
+Json::Json(Json::array &&values)       : m_ptr(make_shared<JsonArray>(move(values))) {}
 Json::Json(const Json::object &values) : m_ptr(make_shared<JsonObject>(values)) {}
-Json::Json(Json::object &&values)      : m_ptr(make_shared<JsonObject>(std::move(values))) {}
+Json::Json(Json::object &&values)      : m_ptr(make_shared<JsonObject>(move(values))) {}
 
 /* * * * * * * * * * * * * * * * * * * *
  * Accessors
@@ -353,9 +339,7 @@ static inline bool in_range(long x, long lower, long upper) {
     return (x >= lower && x <= upper);
 }
 
-#ifndef SOUP_BUILD
 namespace {
-#endif
 /* JsonParser
  *
  * Object that tracks all state of an in-progress parse.
@@ -375,7 +359,7 @@ struct JsonParser final {
      * Mark this parse as failed.
      */
     Json fail(string &&msg) {
-        return fail(std::move(msg), Json());
+        return fail(move(msg), Json());
     }
 
     template <typename T>
@@ -539,7 +523,7 @@ struct JsonParser final {
                         return fail("bad \\u escape: " + esc, "");
                 }
 
-                long codepoint = std::strtol(esc.data(), nullptr, 16);
+                long codepoint = strtol(esc.data(), nullptr, 16);
 
                 // JSON specifies that characters outside the BMP shall be encoded as a pair
                 // of 4-hex-digit \u escapes encoding their surrogate pair components. Check
@@ -743,9 +727,7 @@ struct JsonParser final {
         return fail("expected value, got " + esc(ch));
     }
 };
-#ifndef SOUP_BUILD
 }//namespace {
-#endif
 
 Json Json::parse(const string &in, string &err, JsonParse strategy) {
     JsonParser parser { in, 0, err, false, strategy };

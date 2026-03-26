@@ -50,20 +50,11 @@
 
 #pragma once
 
-// Defines for the Guid class and other platform dependent stuff.
-#ifdef SOUP_BUILD
-  #define SOUP_EXPORT export
-#else
-  #define SOUP_EXPORT
-#endif
-
-#ifndef SOUP_BUILD
 #include <string>
 #include <vector>
 #include <map>
 #include <memory>
 #include <initializer_list>
-#endif
 
 #ifdef _MSC_VER
     #if _MSC_VER <= 1800 // VS 2013
@@ -85,7 +76,7 @@ enum JsonParse {
 
 class JsonValue;
 
-SOUP_EXPORT class Json final {
+class Json final {
 public:
     // Types
     enum Type {
